@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProTrade Journal | Institutional-Grade Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --secondary: #1e40af;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --profit: #10b981;
+            --loss: #ef4444;
+            --border: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--dark);
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background: #f0f4ff;
+        }
+
+        .nav-item.active {
+            background: #ebf2ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--gray);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .change.positive {
+            color: var(--profit);
+        }
+
+        .stat-card .change.negative {
+            color: var(--loss);
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .chart-container h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .trades-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .trades-table th {
+            text-align: left;
+            padding: 12px 15px;
+            font-weight: 500;
+            color: var(--gray);
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trades-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .trades-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .trades-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .trade-pair {
+            display: flex;
+            align-items: center;
+        }
+
+        .trade-pair .icon {
+            width: 32px;
+            height: 32px;
+            background: #ebf2ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .pnl.positive {
+            color: var(--profit);
+            font-weight: 600;
+        }
+
+        .pnl.negative {
+            color: var(--loss);
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge.long {
+            background: #e6f6ee;
+            color: var(--profit);
+        }
+
+        .badge.short {
+            background: #feeceb;
+            color: var(--loss);
+        }
+
+        /* Detail Page Styles */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .trade-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .trade-detail-header h2 {
+            font-size: 24px;
+        }
+
+        .trade-detail-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .trade-detail-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .trade-detail-card h3 {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .trade-detail-card .value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .trade-detail-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .trade-chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .trade-notes {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .trade-notes h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .trade-notes-content {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 200px;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Pro<span>Trade</span></div>
+            <nav>
+                <a href="#" class="active">Dashboard</a>
+                <a href="#">Analytics</a>
+                <a href="#">Journal</a>
+                <a href="#">Account</a>
+            </nav>
+        </header>
+
+        <div class="dashboard">
+            <div class="sidebar">
+                <h3>Navigation</h3>
+                <div class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </div>
+                <div class="nav-item" data-page="trades">
+                    <i class="fas fa-book"></i> Trade Journal
+                </div>
+                <div class="nav-item" data-page="analytics">
+                    <i class="fas fa-chart-pie"></i> Analytics
+                </div>
+                <div class="nav-item" data-page="calendar">
+                    <i class="far fa-calendar-alt"></i> Trading Calendar
+                </div>
+                <div class="nav-item" data-page="watchlist">
+                    <i class="fas fa-binoculars"></i> Watchlist
+                </div>
+                <div class="nav-item" data-page="screener">
+                    <i class="fas fa-filter"></i> Screener
+                </div>
+
+                <h3 style="margin-top: 30px;">Tools</h3>
+                <div class="nav-item">
+                    <i class="fas fa-calculator"></i> Position Sizer
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-project-diagram"></i> Correlation Matrix
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-brain"></i> Psychology Tracker
+                </div>
+            </div>
+
+            <div class="main-content">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page">
+                    <div class="page-header">
+                        <h2>Dashboard</h2>
+                        <div>
+                            <button class="btn btn-outline" style="margin-right: 10px;">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus"></i> New Trade
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Win Rate</h3>
+                            <div class="value">68%</div>
+                            <div class="change positive">+5% this month</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Avg. Win</h3>
+                            <div class="value">$1,250</div>
+                            <div class="change positive">+$120</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Avg. Loss</h3>
+                            <div class="value">$650</div>
+                            <div class="change negative">-$45</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Profit Factor</h3>
+                            <div class="value">2.4</div>
+                            <div class="change positive">+0.3</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>Monthly Performance</h3>
+                        <canvas id="performance-chart" height="300"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Recent Trades</h3>
+                            <a href="#" style="color: var(--primary); font-size: 14px;" id="view-all-trades">View All</a>
+                        </div>
+                        <table class="trades-table">
+                            <thead>
+                                <tr>
+                                    <th>Trade</th>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Entry</th>
+                                    <th>Exit</th>
+                                    <th>PnL</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="trade-row" data-trade-id="1">
+                                    <td>
+                                        <div class="trade-pair">
+                                            <div class="icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <div>
+                                                <div>ES1!</div>
+                                                <div style="font-size: 12px; color: var(--gray);">S&P 500 Futures</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge long">Long</span></td>
+                                    <td>2</td>
+                                    <td>4,250.50</td>
+                                    <td>4,275.25</td>
+                                    <td class="pnl positive">+$1,250</td>
+                                    <td>Today, 10:45 AM</td>
+                                </tr>
+                                <tr class="trade-row" data-trade-id="2">
+                                    <td>
+                                        <div class="trade-pair">
+                                            <div class="icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <div>
+                                                <div>NQ1!</div>
+                                                <div style="font-size: 12px; color: var(--gray);">Nasdaq Futures</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge short">Short</span></td>
+                                    <td>1</td>
+                                    <td>14,520.75</td>
+                                    <td>14,480.50</td>
+                                    <td class="pnl positive">+$805</td>
+                                    <td>Today, 09:30 AM</td>
+                                </tr>
+                                <tr class="trade-row" data-trade-id="3">
+                                    <td>
+                                        <div class="trade-pair">
+                                            <div class="icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <div>
+                                                <div>CL1!</div>
+                                                <div style="font-size: 12px; color: var(--gray);">Crude Oil Futures</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge long">Long</span></td>
+                                    <td>3</td>
+                                    <td>72.45</td>
+                                    <td>71.80</td>
+                                    <td class="pnl negative">-$1,950</td>
+                                    <td>Yesterday, 2:15 PM</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Trade Detail Page (Hidden by default) -->
+                <div id="trade-detail-page" class="hidden">
+                    <div class="back-btn" id="back-btn">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </div>
+
+                    <div class="trade-detail-header">
+                        <h2>Trade #1 - ES1! (S&P 500 Futures)</h2>
+                        <div>
+                            <button class="btn btn-outline" style="margin-right: 10px;">
+                                <i class="far fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-outline">
+                                <i class="far fa-trash-alt"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="trade-detail-stats">
+                        <div class="trade-detail-card">
+                            <h3>Position</h3>
+                            <div class="value"><span class="badge long">Long</span> 2 Contracts</div>
+                        </div>
+                        <div class="trade-detail-card">
+                            <h3>Profit/Loss</h3>
+                            <div class="value pnl positive">+$1,250 (1.47%)</div>
+                        </div>
+                        <div class="trade-detail-card">
+                            <h3>Duration</h3>
+                            <div class="value">2 hours 15 minutes</div>
+                        </div>
+                    </div>
+
+                    <div class="trade-detail-grid">
+                        <div>
+                            <div class="trade-chart-container">
+                                <h3>Trade Execution</h3>
+                                <canvas id="trade-chart" height="300"></canvas>
+                            </div>
+
+                            <div class="trade-notes">
+                                <h3>Execution Details</h3>
+                                <div class="trade-notes-content">
+                                    <p><strong>Entry:</strong> 4,250.50 - Break of previous day's high with increasing volume</p>
+                                    <p><strong>Exit:</strong> 4,275.25 - Reached daily R2 resistance level</p>
+                                    <p><strong>Stop Loss:</strong> 4,240.00 (10.5 points)</p>
+                                    <p><strong>Risk:</strong> $525 (0.62% of account)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="trade-notes">
+                                <h3>Trade Reasoning</h3>
+                                <div class="trade-notes-content">
+                                    <p>1. Daily chart showed strong uptrend with higher highs/lows</p>
+                                    <p>2. 15-min chart formed bull flag pattern</p>
+                                    <p>3. Volume spike on breakout confirmation</p>
+                                    <p>4. NYSE TICK showed strong buying pressure</p>
+                                    <p>5. VIX was declining, supporting bullish move</p>
+                                </div>
+                            </div>
+
+                            <div class="trade-notes" style="margin-top: 20px;">
+                                <h3>Lessons Learned</h3>
+                                <div class="trade-notes-content">
+                                    <p>• Could have added to position at 4,260 when volume confirmed continuation</p>
+                                    <p>• Should have trailed stop more aggressively after 4,270</p>
+                                    <p>• Market internals were exceptionally strong - could have held longer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Charts
+        const performanceCtx = document.getElementById('performance-chart').getContext('2d');
+        new Chart(performanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Profit/Loss ($)',
+                    data: [3200, 4100, 2800, 5200, 4750, 3900],
+                    backgroundColor: '#2563eb',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        const tradeCtx = document.getElementById('trade-chart').getContext('2d');
+        new Chart(tradeCtx, {
+            type: 'line',
+            data: {
+                labels: ['09:30', '09:45', '10:00', '10:15', '10:30', '10:45', '11:00'],
+                datasets: [{
+                    label: 'ES1! Price',
+                    data: [4245, 4248, 4252, 4250, 4255, 4265, 4275],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    annotation: {
+                        annotations: {
+                            entry: {
+                                type: 'line',
+                                yMin: 4250.5,
+                                yMax: 4250.5,
+                                borderColor: '#10b981',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Entry',
+                                    enabled: true,
+                                    position: 'left'
+                                }
+                            },
+                            exit: {
+                                type: 'line',
+                                yMin: 4275.25,
+                                yMax: 4275.25,
+                                borderColor: '#ef4444',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Exit',
+                                    enabled: true,
+                                    position: 'right'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Page Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                // In a real app, you'd load the appropriate page content here
+            });
+        });
+
+        // Trade Row Click - Show Detail Page
+        document.querySelectorAll('.trade-row').forEach(row => {
+            row.addEventListener('click', function() {
+                document.getElementById('dashboard-page').classList.add('hidden');
+                document.getElementById('trade-detail-page').classList.remove('hidden');
+            });
+        });
+
+        // Back Button
+        document.getElementById('back-btn').addEventListener('click', function() {
+            document.getElementById('dashboard-page').classList.remove('hidden');
+            document.getElementById('trade-detail-page').classList.add('hidden');
+        });
+
+        // View All Trades
+        document.getElementById('view-all-trades').addEventListener('click', function(e) {
+            e.preventDefault();
+            // In a real app, this would navigate to the full trades page
+            alert('This would show all trades in a dedicated page in a real application');
+        });
+    </script>
+</body>
+</html>
