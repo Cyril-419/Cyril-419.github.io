@@ -705,6 +705,120 @@
             width: 100%;
             height: 100%;
         }
+
+        /* Calendar Events */
+        .calendar-event {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            background: var(--darker);
+            border-left: 4px solid var(--primary);
+        }
+
+        .calendar-event.high-impact {
+            border-left-color: #ff6b6b;
+        }
+
+        .calendar-event.medium-impact {
+            border-left-color: #feca57;
+        }
+
+        .calendar-event-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .calendar-event-title {
+            font-weight: 600;
+        }
+
+        .calendar-event-time {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .calendar-event-impact {
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--border);
+        }
+
+        .calendar-event-currency {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .calendar-event-forecast {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Filter Modal */
+        .filter-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .filter-modal-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+
+        .filter-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -795,30 +909,30 @@
                     <div class="stats-grid">
                         <div class="stat-card">
                             <h3><i class="fas fa-percentage"></i> Win Rate</h3>
-                            <div class="value">72%</div>
-                            <div class="change positive">
-                                <i class="fas fa-arrow-up"></i> 5% this month
+                            <div class="value">0%</div>
+                            <div class="change">
+                                No trades yet
                             </div>
                         </div>
                         <div class="stat-card">
                             <h3><i class="fas fa-arrow-up"></i> Avg. Win</h3>
-                            <div class="value">$1,450</div>
-                            <div class="change positive">
-                                <i class="fas fa-arrow-up"></i> $120
+                            <div class="value">$0</div>
+                            <div class="change">
+                                No trades yet
                             </div>
                         </div>
                         <div class="stat-card">
                             <h3><i class="fas fa-arrow-down"></i> Avg. Loss</h3>
-                            <div class="value">$680</div>
-                            <div class="change negative">
-                                <i class="fas fa-arrow-down"></i> $45
+                            <div class="value">$0</div>
+                            <div class="change">
+                                No trades yet
                             </div>
                         </div>
                         <div class="stat-card">
                             <h3><i class="fas fa-balance-scale"></i> Profit Factor</h3>
-                            <div class="value">2.8</div>
-                            <div class="change positive">
-                                <i class="fas fa-arrow-up"></i> 0.4
+                            <div class="value">0</div>
+                            <div class="change">
+                                No trades yet
                             </div>
                         </div>
                     </div>
@@ -846,62 +960,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="trade-row" data-trade-id="1">
-                                    <td>
-                                        <div class="trade-pair">
-                                            <div class="icon">
-                                                <i class="fas fa-chart-line"></i>
-                                            </div>
-                                            <div>
-                                                <div>ES1!</div>
-                                                <div style="font-size: 12px; color: var(--gray);">S&P 500 Futures</div>
-                                            </div>
-                                        </div>
+                                <!-- Empty state for trades -->
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 30px; color: var(--gray);">
+                                        <i class="fas fa-book-open" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                                        No trades recorded yet. <a href="#" style="color: var(--primary);" data-page="new-trade">Add your first trade</a> to get started.
                                     </td>
-                                    <td><span class="badge long">Long</span></td>
-                                    <td>2</td>
-                                    <td>4,250.50</td>
-                                    <td>4,275.25</td>
-                                    <td class="pnl positive">+$1,250</td>
-                                    <td>Today, 10:45 AM</td>
-                                </tr>
-                                <tr class="trade-row" data-trade-id="2">
-                                    <td>
-                                        <div class="trade-pair">
-                                            <div class="icon">
-                                                <i class="fas fa-chart-line"></i>
-                                            </div>
-                                            <div>
-                                                <div>NQ1!</div>
-                                                <div style="font-size: 12px; color: var(--gray);">Nasdaq Futures</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge short">Short</span></td>
-                                    <td>1</td>
-                                    <td>14,520.75</td>
-                                    <td>14,480.50</td>
-                                    <td class="pnl positive">+$805</td>
-                                    <td>Today, 09:30 AM</td>
-                                </tr>
-                                <tr class="trade-row" data-trade-id="3">
-                                    <td>
-                                        <div class="trade-pair">
-                                            <div class="icon">
-                                                <i class="fas fa-chart-line"></i>
-                                            </div>
-                                            <div>
-                                                <div>CL1!</div>
-                                                <div style="font-size: 12px; color: var(--gray);">Crude Oil Futures</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge long">Long</span></td>
-                                    <td>3</td>
-                                    <td>72.45</td>
-                                    <td>71.80</td>
-                                    <td class="pnl negative">-$1,950</td>
-                                    <td>Yesterday, 2:15 PM</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -913,7 +977,7 @@
                     <div class="page-header">
                         <h2><i class="fas fa-book"></i> Trade Journal</h2>
                         <div>
-                            <button class="btn btn-outline" style="margin-right: 10px;">
+                            <button class="btn btn-outline" id="filterTradesBtn" style="margin-right: 10px;">
                                 <i class="fas fa-filter"></i> Filters
                             </button>
                             <button class="btn btn-primary" data-page="new-trade">
@@ -943,6 +1007,12 @@
                             </thead>
                             <tbody id="journal-trades-body">
                                 <!-- Filled by JavaScript -->
+                                <tr>
+                                    <td colspan="8" style="text-align: center; padding: 30px; color: var(--gray);">
+                                        <i class="fas fa-book-open" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                                        No trades recorded yet. <a href="#" style="color: var(--primary);" data-page="new-trade">Add your first trade</a> to get started.
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -1048,7 +1118,7 @@
                     </div>
 
                     <div class="trade-detail-header">
-                        <h2>Trade #1 - ES1! (S&P 500 Futures)</h2>
+                        <h2>Trade Details</h2>
                         <div>
                             <button class="btn btn-outline" style="margin-right: 10px;">
                                 <i class="far fa-edit"></i> Edit
@@ -1062,15 +1132,15 @@
                     <div class="trade-detail-stats">
                         <div class="trade-detail-card">
                             <h3><i class="fas fa-arrow-up"></i> Position</h3>
-                            <div class="value"><span class="badge long">Long</span> 2 Contracts</div>
+                            <div class="value"><span class="badge long">Long</span> 0 Contracts</div>
                         </div>
                         <div class="trade-detail-card">
                             <h3><i class="fas fa-dollar-sign"></i> Profit/Loss</h3>
-                            <div class="value pnl positive">+$1,250 (1.47%)</div>
+                            <div class="value pnl positive">$0 (0%)</div>
                         </div>
                         <div class="trade-detail-card">
                             <h3><i class="far fa-clock"></i> Duration</h3>
-                            <div class="value">2 hours 15 minutes</div>
+                            <div class="value">0 hours 0 minutes</div>
                         </div>
                     </div>
 
@@ -1084,7 +1154,7 @@
                             <div class="trade-notes">
                                 <h3><i class="fas fa-info-circle"></i> Execution Details</h3>
                                 <div class="trade-notes-content" id="executionDetails">
-                                    <!-- Filled by JavaScript -->
+                                    No trade details available
                                 </div>
                             </div>
                         </div>
@@ -1093,14 +1163,14 @@
                             <div class="trade-notes">
                                 <h3><i class="fas fa-lightbulb"></i> Trade Reasoning</h3>
                                 <div class="trade-notes-content" id="tradeReasoning">
-                                    <!-- Filled by JavaScript -->
+                                    No trade reasoning provided
                                 </div>
                             </div>
 
                             <div class="trade-notes" style="margin-top: 20px;">
                                 <h3><i class="fas fa-book"></i> Lessons Learned</h3>
                                 <div class="trade-notes-content" id="lessonsLearned">
-                                    <!-- Filled by JavaScript -->
+                                    No lessons learned recorded
                                 </div>
                             </div>
                         </div>
@@ -1116,30 +1186,30 @@
                     <div class="stats-grid">
                         <div class="stat-card">
                             <h3><i class="fas fa-percentage"></i> Win Rate</h3>
-                            <div class="value">72%</div>
-                            <div class="change positive">
-                                <i class="fas fa-arrow-up"></i> 5% this month
+                            <div class="value">0%</div>
+                            <div class="change">
+                                No trades yet
                             </div>
                         </div>
                         <div class="stat-card">
                             <h3><i class="fas fa-calendar-alt"></i> Best Day</h3>
-                            <div class="value">Tuesday</div>
+                            <div class="value">N/A</div>
                             <div class="change">
-                                68% win rate
+                                No data
                             </div>
                         </div>
                         <div class="stat-card">
                             <h3><i class="fas fa-clock"></i> Best Time</h3>
-                            <div class="value">10:00 AM</div>
+                            <div class="value">N/A</div>
                             <div class="change">
-                                75% win rate
+                                No data
                             </div>
                         </div>
                         <div class="stat-card">
                             <h3><i class="fas fa-star"></i> Best Instrument</h3>
-                            <div class="value">ES1!</div>
-                            <div class="change positive">
-                                78% win rate
+                            <div class="value">N/A</div>
+                            <div class="change">
+                                No data
                             </div>
                         </div>
                     </div>
@@ -1192,6 +1262,10 @@
                         <h3><i class="fas fa-calendar-week"></i> Economic Events</h3>
                         <div id="economic-calendar" style="height: 400px; overflow-y: auto;">
                             <!-- Calendar events will be loaded here -->
+                            <div style="text-align: center; padding: 30px; color: var(--gray);">
+                                <i class="fas fa-calendar" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                                Loading economic calendar data...
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1245,6 +1319,12 @@
                                 </thead>
                                 <tbody id="screener-results">
                                     <!-- Filled by JavaScript -->
+                                    <tr>
+                                        <td colspan="6" style="text-align: center; padding: 30px; color: var(--gray);">
+                                            <i class="fas fa-filter" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                                            Apply filters to see market data
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -1347,6 +1427,75 @@
         </div>
     </div>
 
+    <!-- Filter Modal -->
+    <div id="filterModal" class="filter-modal">
+        <div class="filter-modal-content">
+            <span class="close-modal" data-modal="filterModal">&times;</span>
+            <h2><i class="fas fa-filter"></i> Filter Trades</h2>
+            
+            <div class="filter-group">
+                <h3>Time Period</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="radio" id="filter-all-time" name="time-period" checked>
+                        <label for="filter-all-time">All Time</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" id="filter-this-month" name="time-period">
+                        <label for="filter-this-month">This Month</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" id="filter-this-week" name="time-period">
+                        <label for="filter-this-week">This Week</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" id="filter-today" name="time-period">
+                        <label for="filter-today">Today</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h3>Trade Outcome</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="radio" id="filter-all-outcomes" name="outcome" checked>
+                        <label for="filter-all-outcomes">All Trades</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" id="filter-winners" name="outcome">
+                        <label for="filter-winners">Winning Trades</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" id="filter-losers" name="outcome">
+                        <label for="filter-losers">Losing Trades</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h3>Instrument</h3>
+                <select id="filter-instrument" style="width: 100%;">
+                    <option value="all">All Instruments</option>
+                    <option value="ES1!">ES1! (S&P 500 Futures)</option>
+                    <option value="NQ1!">NQ1! (Nasdaq Futures)</option>
+                    <option value="CL1!">CL1! (Crude Oil Futures)</option>
+                    <option value="GC1!">GC1! (Gold Futures)</option>
+                    <option value="ZN1!">ZN1! (10-Year Treasury Futures)</option>
+                </select>
+            </div>
+            
+            <div class="filter-actions">
+                <button class="btn btn-outline" id="resetFilters">
+                    Reset
+                </button>
+                <button class="btn btn-primary" id="applyFilters">
+                    Apply Filters
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modals -->
     <div id="positionSizeModal" class="modal">
         <div class="modal-content">
@@ -1444,6 +1593,12 @@
                     </thead>
                     <tbody id="modal-screener-results">
                         <!-- Results will be populated here -->
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 30px; color: var(--gray);">
+                                <i class="fas fa-filter" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                                Apply filters to see market data
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1452,68 +1607,7 @@
 
     <script>
         // ===== Global Variables =====
-        let trades = [
-            {
-                id: 1,
-                date: '2023-05-20T10:45:00',
-                instrument: 'ES1!',
-                instrumentName: 'S&P 500 Futures',
-                positionType: 'Long',
-                entryPrice: 4250.50,
-                exitPrice: 4275.25,
-                size: 2,
-                commission: 5.00,
-                reasoning: '1. Daily chart showed strong uptrend with higher highs/lows\n2. 15-min chart formed bull flag pattern\n3. Volume spike on breakout confirmation\n4. NYSE TICK showed strong buying pressure\n5. VIX was declining, supporting bullish move',
-                lessons: '• Could have added to position at 4,260 when volume confirmed continuation\n• Should have trailed stop more aggressively after 4,270\n• Market internals were exceptionally strong - could have held longer',
-                pnl: 1250,
-                pnlPercent: 1.47,
-                duration: '2 hours 15 minutes',
-                stopLoss: 4240.00,
-                risk: 525,
-                reward: 1250,
-                riskReward: '1:2.38'
-            },
-            {
-                id: 2,
-                date: '2023-05-20T09:30:00',
-                instrument: 'NQ1!',
-                instrumentName: 'Nasdaq Futures',
-                positionType: 'Short',
-                entryPrice: 14520.75,
-                exitPrice: 14480.50,
-                size: 1,
-                commission: 2.50,
-                reasoning: '1. Overbought RSI on 15-min chart\n2. Bearish divergence forming\n3. Resistance at previous day high\n4. Large sellers on level 2',
-                lessons: '• Exited too early\n• Should have waited for test of 14450 support\n• Need to watch for exhaustion signals',
-                pnl: 805,
-                pnlPercent: 0.95,
-                duration: '1 hour 45 minutes',
-                stopLoss: 14550.00,
-                risk: 300,
-                reward: 805,
-                riskReward: '1:2.68'
-            },
-            {
-                id: 3,
-                date: '2023-05-19T14:15:00',
-                instrument: 'CL1!',
-                instrumentName: 'Crude Oil Futures',
-                positionType: 'Long',
-                entryPrice: 72.45,
-                exitPrice: 71.80,
-                size: 3,
-                commission: 7.50,
-                reasoning: '1. Bounce off daily support\n2. Inventory report coming out\n3. Oversold conditions\n4. Large buyers stepping in',
-                lessons: '1. Didn\'t account for inventory report risk\n2. Should have waited for report or reduced size\n3. Need better news monitoring',
-                pnl: -1950,
-                pnlPercent: -2.30,
-                duration: '3 hours 30 minutes',
-                stopLoss: 71.50,
-                risk: 2850,
-                reward: 0,
-                riskReward: '1:0'
-            }
-        ];
+        let trades = []; // Start with empty trades array
 
         // ===== DOM Elements =====
         const themeToggle = document.getElementById('themeToggle');
@@ -1535,6 +1629,11 @@
         const modalRunScreenerBtn = document.getElementById('modal-run-screener');
         const closeModalButtons = document.querySelectorAll('.close-modal');
         const modals = document.querySelectorAll('.modal');
+        const filterTradesBtn = document.getElementById('filterTradesBtn');
+        const filterModal = document.getElementById('filterModal');
+        const applyFiltersBtn = document.getElementById('applyFilters');
+        const resetFiltersBtn = document.getElementById('resetFilters');
+        const economicCalendar = document.getElementById('economic-calendar');
 
         // ===== Initialize App =====
         function initApp() {
@@ -1555,6 +1654,9 @@
             
             // Show dashboard by default
             showPage('dashboard');
+            
+            // Load economic calendar data
+            loadEconomicCalendar();
         }
 
         // ===== Date Pickers =====
@@ -1572,14 +1674,14 @@
 
         // ===== Charts =====
         function initCharts() {
-            // Performance Chart
+            // Performance Chart - Empty state
             new Chart(document.getElementById('performance-chart'), {
                 type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     datasets: [{
                         label: 'Profit/Loss ($)',
-                        data: [3200, 4100, 2800, 5200, 4750, 3900],
+                        data: Array(12).fill(0),
                         backgroundColor: '#3a86ff',
                         borderRadius: 6
                     }]
@@ -1587,14 +1689,14 @@
                 options: getChartOptions('Monthly Performance ($)')
             });
 
-            // Journal Chart
+            // Journal Chart - Empty state
             new Chart(document.getElementById('journal-chart'), {
                 type: 'doughnut',
                 data: {
                     labels: ['Winning Trades', 'Losing Trades'],
                     datasets: [{
-                        data: [72, 28],
-                        backgroundColor: ['#00b894', '#ff6b6b'],
+                        data: [0, 0],
+                        backgroundColor: ['#3a86ff', '#000000'], // Blue for winning, black for losing
                         borderWidth: 0
                     }]
                 },
@@ -1612,14 +1714,14 @@
                 }
             });
 
-            // Analytics Chart 1
+            // Analytics Chart 1 - Empty state
             new Chart(document.getElementById('analytics-chart-1'), {
                 type: 'line',
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
                     datasets: [{
                         label: 'Net PnL',
-                        data: [3200, 7300, 10100, 15300, 20050, 23950],
+                        data: Array(6).fill(0),
                         borderColor: '#3a86ff',
                         backgroundColor: 'rgba(58, 134, 255, 0.1)',
                         fill: true,
@@ -1630,20 +1732,14 @@
                 options: getChartOptions('Cumulative PnL ($)')
             });
 
-            // Analytics Chart 2
+            // Analytics Chart 2 - Empty state
             new Chart(document.getElementById('analytics-chart-2'), {
                 type: 'pie',
                 data: {
-                    labels: ['ES1!', 'NQ1!', 'CL1!', 'GC1!', 'ZN1!'],
+                    labels: ['No data'],
                     datasets: [{
-                        data: [78, 65, 55, 70, 60],
-                        backgroundColor: [
-                            '#3a86ff',
-                            '#8338ec',
-                            '#ff006e',
-                            '#fb5607',
-                            '#ffbe0b'
-                        ],
+                        data: [1],
+                        backgroundColor: ['#6b7280'],
                         borderWidth: 0
                     }]
                 },
@@ -1660,25 +1756,21 @@
                 }
             });
 
-            // Analytics Chart 3
+            // Analytics Chart 3 - Empty state
             new Chart(document.getElementById('analytics-chart-3'), {
                 type: 'bar',
                 data: {
-                    labels: ['<$500', '$500-$1K', '$1K-$2K', '$2K-$5K', '>$5K'],
+                    labels: ['No data'],
                     datasets: [{
-                        label: 'Wins',
-                        data: [12, 18, 15, 8, 3],
-                        backgroundColor: '#00b894'
-                    }, {
-                        label: 'Losses',
-                        data: [8, 5, 3, 1, 0],
-                        backgroundColor: '#ff6b6b'
+                        label: 'No trades',
+                        data: [0],
+                        backgroundColor: '#6b7280'
                     }]
                 },
                 options: getChartOptions('PnL Distribution')
             });
 
-            // Metrics Chart 1
+            // Metrics Chart 1 - Empty state
             new Chart(document.getElementById('metrics-chart-1'), {
                 type: 'line',
                 data: {
@@ -1686,7 +1778,7 @@
                     datasets: [
                         {
                             label: 'Win Rate',
-                            data: [65, 68, 70, 72, 71, 72],
+                            data: Array(6).fill(0),
                             borderColor: '#00b894',
                             backgroundColor: 'rgba(0, 184, 148, 0.1)',
                             fill: true,
@@ -1695,7 +1787,7 @@
                         },
                         {
                             label: 'Profit Factor',
-                            data: [1.8, 2.1, 2.3, 2.5, 2.7, 2.8],
+                            data: Array(6).fill(0),
                             borderColor: '#3a86ff',
                             backgroundColor: 'rgba(58, 134, 255, 0.1)',
                             fill: true,
@@ -1707,14 +1799,14 @@
                 options: getChartOptions('Key Metrics Over Time')
             });
 
-            // Metrics Chart 2
+            // Metrics Chart 2 - Empty state
             new Chart(document.getElementById('metrics-chart-2'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['<1h', '1-4h', '4-8h', '>8h'],
+                    labels: ['No data'],
                     datasets: [{
-                        data: [35, 40, 15, 10],
-                        backgroundColor: ['#3a86ff', '#8338ec', '#ff006e', '#fb5607'],
+                        data: [1],
+                        backgroundColor: ['#6b7280'],
                         borderWidth: 0
                     }]
                 },
@@ -1732,38 +1824,32 @@
                 }
             });
 
-            // Metrics Chart 3
+            // Metrics Chart 3 - Empty state
             new Chart(document.getElementById('metrics-chart-3'), {
                 type: 'bar',
                 data: {
-                    labels: ['1', '2', '3', '4', '5+'],
+                    labels: ['No data'],
                     datasets: [{
-                        label: 'Win Rate',
-                        data: [65, 70, 72, 75, 68],
-                        backgroundColor: '#3a86ff'
+                        label: 'No trades',
+                        data: [0],
+                        backgroundColor: '#6b7280'
                     }]
                 },
                 options: getChartOptions('Win Rate by Position Size (Contracts)')
             });
 
-            // Correlation Chart
+            // Correlation Chart - Empty state
             new Chart(document.getElementById('correlation-chart'), {
                 type: 'bar',
                 data: {
-                    labels: ['ES1!', 'NQ1!', 'CL1!', 'GC1!', 'ZN1!'],
+                    labels: ['No data'],
                     datasets: [{
-                        label: 'Correlation Coefficient',
-                        data: [1.0, 0.85, -0.15, 0.25, -0.45],
-                        backgroundColor: [
-                            '#3a86ff',
-                            '#3a86ff',
-                            '#ff6b6b',
-                            '#3a86ff',
-                            '#ff6b6b'
-                        ]
+                        label: 'No instruments selected',
+                        data: [0],
+                        backgroundColor: ['#6b7280']
                     }]
                 },
-                options: getChartOptions('Correlation with ES1!')
+                options: getChartOptions('Correlation Matrix')
             });
         }
 
@@ -1814,6 +1900,18 @@
         function loadJournalTrades() {
             journalTradesBody.innerHTML = '';
             
+            if (trades.length === 0) {
+                journalTradesBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 30px; color: var(--gray);">
+                            <i class="fas fa-book-open" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                            No trades recorded yet. <a href="#" style="color: var(--primary);" data-page="new-trade">Add your first trade</a> to get started.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
             trades.forEach(trade => {
                 const pnl = trade.pnl;
                 const pnlPerContract = pnl / trade.size;
@@ -1860,11 +1958,223 @@
                     showTradeDetail(tradeId);
                 });
             });
+            
+            // Update analytics charts
+            updateAnalyticsCharts();
         }
 
         function formatDate(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        // ===== Update Analytics Charts =====
+        function updateAnalyticsCharts() {
+            if (trades.length === 0) return;
+            
+            // Calculate monthly performance
+            const monthlyData = {};
+            trades.forEach(trade => {
+                const date = new Date(trade.date);
+                const month = date.getMonth();
+                if (!monthlyData[month]) {
+                    monthlyData[month] = 0;
+                }
+                monthlyData[month] += trade.pnl;
+            });
+            
+            // Fill all months
+            const allMonths = Array.from({length: 12}, (_, i) => monthlyData[i] || 0);
+            
+            // Update performance chart
+            const performanceChart = Chart.getChart('performance-chart');
+            if (performanceChart) {
+                performanceChart.data.datasets[0].data = allMonths;
+                performanceChart.update();
+            }
+            
+            // Calculate win rate
+            const winningTrades = trades.filter(trade => trade.pnl >= 0).length;
+            const losingTrades = trades.length - winningTrades;
+            
+            // Update journal chart (pie chart)
+            const journalChart = Chart.getChart('journal-chart');
+            if (journalChart) {
+                journalChart.data.datasets[0].data = [winningTrades, losingTrades];
+                journalChart.update();
+            }
+            
+            // Calculate cumulative PnL
+            const sortedTrades = [...trades].sort((a, b) => new Date(a.date) - new Date(b.date));
+            const cumulativePnL = [];
+            let cumulative = 0;
+            sortedTrades.forEach(trade => {
+                cumulative += trade.pnl;
+                cumulativePnL.push(cumulative);
+            });
+            
+            // Update analytics chart 1 (cumulative PnL)
+            const analyticsChart1 = Chart.getChart('analytics-chart-1');
+            if (analyticsChart1) {
+                analyticsChart1.data.labels = sortedTrades.map((_, i) => `Trade ${i+1}`);
+                analyticsChart1.data.datasets[0].data = cumulativePnL;
+                analyticsChart1.update();
+            }
+            
+            // Calculate win rate by instrument
+            const instruments = {};
+            trades.forEach(trade => {
+                if (!instruments[trade.instrument]) {
+                    instruments[trade.instrument] = { wins: 0, total: 0 };
+                }
+                instruments[trade.instrument].total++;
+                if (trade.pnl >= 0) {
+                    instruments[trade.instrument].wins++;
+                }
+            });
+            
+            const instrumentLabels = Object.keys(instruments);
+            const winRates = instrumentLabels.map(instr => {
+                return (instruments[instr].wins / instruments[instr].total) * 100;
+            });
+            
+            // Update analytics chart 2 (win rate by instrument)
+            const analyticsChart2 = Chart.getChart('analytics-chart-2');
+            if (analyticsChart2) {
+                analyticsChart2.data.labels = instrumentLabels;
+                analyticsChart2.data.datasets[0].data = winRates;
+                analyticsChart2.data.datasets[0].backgroundColor = instrumentLabels.map(() => '#3a86ff');
+                analyticsChart2.update();
+            }
+            
+            // Calculate PnL distribution
+            const pnlRanges = [
+                { min: -Infinity, max: -500, label: '<-$500', wins: 0, losses: 0 },
+                { min: -500, max: 0, label: '-$500-$0', wins: 0, losses: 0 },
+                { min: 0, max: 500, label: '$0-$500', wins: 0, losses: 0 },
+                { min: 500, max: 1000, label: '$500-$1K', wins: 0, losses: 0 },
+                { min: 1000, max: 2000, label: '$1K-$2K', wins: 0, losses: 0 },
+                { min: 2000, max: 5000, label: '$2K-$5K', wins: 0, losses: 0 },
+                { min: 5000, max: Infinity, label: '>$5K', wins: 0, losses: 0 }
+            ];
+            
+            trades.forEach(trade => {
+                const pnl = trade.pnl;
+                for (const range of pnlRanges) {
+                    if (pnl >= range.min && pnl < range.max) {
+                        if (pnl >= 0) {
+                            range.wins++;
+                        } else {
+                            range.losses++;
+                        }
+                        break;
+                    }
+                }
+            });
+            
+            // Update analytics chart 3 (PnL distribution)
+            const analyticsChart3 = Chart.getChart('analytics-chart-3');
+            if (analyticsChart3) {
+                analyticsChart3.data.labels = pnlRanges.map(r => r.label);
+                analyticsChart3.data.datasets = [
+                    {
+                        label: 'Wins',
+                        data: pnlRanges.map(r => r.wins),
+                        backgroundColor: '#3a86ff'
+                    },
+                    {
+                        label: 'Losses',
+                        data: pnlRanges.map(r => r.losses),
+                        backgroundColor: '#000000'
+                    }
+                ];
+                analyticsChart3.update();
+            }
+            
+            // Update metrics charts
+            updateMetricsCharts();
+        }
+
+        function updateMetricsCharts() {
+            if (trades.length === 0) return;
+            
+            // Calculate win rate over time
+            const sortedTrades = [...trades].sort((a, b) => new Date(a.date) - new Date(b.date));
+            const winRateData = [];
+            let wins = 0;
+            
+            sortedTrades.forEach((trade, i) => {
+                if (trade.pnl >= 0) wins++;
+                winRateData.push((wins / (i + 1)) * 100);
+            });
+            
+            // Update metrics chart 1 (win rate over time)
+            const metricsChart1 = Chart.getChart('metrics-chart-1');
+            if (metricsChart1) {
+                metricsChart1.data.labels = sortedTrades.map((_, i) => `Trade ${i+1}`);
+                metricsChart1.data.datasets[0].data = winRateData;
+                metricsChart1.update();
+            }
+            
+            // Calculate trade duration distribution
+            const durationRanges = [
+                { min: 0, max: 1, label: '<1h', count: 0 },
+                { min: 1, max: 4, label: '1-4h', count: 0 },
+                { min: 4, max: 8, label: '4-8h', count: 0 },
+                { min: 8, max: 24, label: '8-24h', count: 0 },
+                { min: 24, max: Infinity, label: '>24h', count: 0 }
+            ];
+            
+            trades.forEach(trade => {
+                // Parse duration (sample format: "2 hours 15 minutes")
+                const durationMatch = trade.duration.match(/(\d+)\s*hours?\s*(\d+)?\s*minutes?/);
+                if (durationMatch) {
+                    const hours = parseInt(durationMatch[1]);
+                    const minutes = durationMatch[2] ? parseInt(durationMatch[2]) : 0;
+                    const totalHours = hours + (minutes / 60);
+                    
+                    for (const range of durationRanges) {
+                        if (totalHours >= range.min && totalHours < range.max) {
+                            range.count++;
+                            break;
+                        }
+                    }
+                }
+            });
+            
+            // Update metrics chart 2 (duration distribution)
+            const metricsChart2 = Chart.getChart('metrics-chart-2');
+            if (metricsChart2) {
+                metricsChart2.data.labels = durationRanges.map(r => r.label);
+                metricsChart2.data.datasets[0].data = durationRanges.map(r => r.count);
+                metricsChart2.data.datasets[0].backgroundColor = ['#3a86ff', '#8338ec', '#ff006e', '#fb5607', '#ffbe0b'];
+                metricsChart2.update();
+            }
+            
+            // Calculate win rate by position size
+            const sizeGroups = {};
+            trades.forEach(trade => {
+                if (!sizeGroups[trade.size]) {
+                    sizeGroups[trade.size] = { wins: 0, total: 0 };
+                }
+                sizeGroups[trade.size].total++;
+                if (trade.pnl >= 0) {
+                    sizeGroups[trade.size].wins++;
+                }
+            });
+            
+            const sizeLabels = Object.keys(sizeGroups).sort((a, b) => a - b);
+            const sizeWinRates = sizeLabels.map(size => {
+                return (sizeGroups[size].wins / sizeGroups[size].total) * 100;
+            });
+            
+            // Update metrics chart 3 (win rate by position size)
+            const metricsChart3 = Chart.getChart('metrics-chart-3');
+            if (metricsChart3) {
+                metricsChart3.data.labels = sizeLabels.map(s => `${s} contract${s > 1 ? 's' : ''}`);
+                metricsChart3.data.datasets[0].data = sizeWinRates;
+                metricsChart3.update();
+            }
         }
 
         // ===== Trade Detail =====
@@ -1881,7 +2191,8 @@
                 `<span class="badge ${trade.positionType.toLowerCase()}">${trade.positionType}</span> ${trade.size} Contracts`;
             
             // Update PnL card
-            document.querySelector('#trade-detail-page .trade-detail-card:nth-child(2) .value').innerHTML = 
+            const pnlElement = document.querySelector('#trade-detail-page .trade-detail-card:nth-child(2) .value');
+            pnlElement.innerHTML = 
                 `<span class="pnl ${trade.pnl >= 0 ? 'positive' : 'negative'}">${trade.pnl >= 0 ? '+' : ''}${trade.pnl.toFixed(2)} (${trade.pnlPercent.toFixed(2)}%)</span>`;
             
             // Update duration card
@@ -2145,6 +2456,209 @@
             }
         }
 
+        // ===== Economic Calendar =====
+        function loadEconomicCalendar() {
+            // In a real app, you would fetch this data from forexfactory.com API
+            // This is a simulation with sample data
+            
+            const sampleEvents = [
+                {
+                    title: "Non-Farm Employment Change",
+                    time: "08:30",
+                    currency: "USD",
+                    impact: "high",
+                    forecast: "180K",
+                    previous: "175K"
+                },
+                {
+                    title: "Unemployment Rate",
+                    time: "08:30",
+                    currency: "USD",
+                    impact: "high",
+                    forecast: "3.6%",
+                    previous: "3.5%"
+                },
+                {
+                    title: "Average Hourly Earnings m/m",
+                    time: "08:30",
+                    currency: "USD",
+                    impact: "medium",
+                    forecast: "0.3%",
+                    previous: "0.2%"
+                },
+                {
+                    title: "FOMC Member Williams Speaks",
+                    time: "10:00",
+                    currency: "USD",
+                    impact: "medium",
+                    forecast: "",
+                    previous: ""
+                },
+                {
+                    title: "ISM Manufacturing PMI",
+                    time: "10:00",
+                    currency: "USD",
+                    impact: "high",
+                    forecast: "50.1",
+                    previous: "49.2"
+                },
+                {
+                    title: "Construction Spending m/m",
+                    time: "10:00",
+                    currency: "USD",
+                    impact: "low",
+                    forecast: "0.2%",
+                    previous: "0.1%"
+                }
+            ];
+            
+            economicCalendar.innerHTML = '';
+            
+            sampleEvents.forEach(event => {
+                const eventElement = document.createElement('div');
+                eventElement.className = `calendar-event ${event.impact}-impact`;
+                
+                eventElement.innerHTML = `
+                    <div class="calendar-event-header">
+                        <div class="calendar-event-title">${event.title}</div>
+                        <div class="calendar-event-time">${event.time}</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="calendar-event-currency">${event.currency}</div>
+                        <div class="calendar-event-impact">${event.impact} impact</div>
+                    </div>
+                    <div class="calendar-event-forecast">
+                        <strong>Forecast:</strong> ${event.forecast} | <strong>Previous:</strong> ${event.previous}
+                    </div>
+                `;
+                
+                economicCalendar.appendChild(eventElement);
+            });
+        }
+
+        // ===== Filter Trades =====
+        function setupTradeFilters() {
+            filterTradesBtn.addEventListener('click', function() {
+                filterModal.style.display = 'flex';
+            });
+            
+            applyFiltersBtn.addEventListener('click', function() {
+                // Get filter values
+                const timePeriod = document.querySelector('input[name="time-period"]:checked').id;
+                const outcome = document.querySelector('input[name="outcome"]:checked').id;
+                const instrument = document.getElementById('filter-instrument').value;
+                
+                // Apply filters
+                let filteredTrades = [...trades];
+                
+                // Time period filter
+                const now = new Date();
+                if (timePeriod === 'filter-this-month') {
+                    const currentMonth = now.getMonth();
+                    const currentYear = now.getFullYear();
+                    filteredTrades = filteredTrades.filter(trade => {
+                        const tradeDate = new Date(trade.date);
+                        return tradeDate.getMonth() === currentMonth && tradeDate.getFullYear() === currentYear;
+                    });
+                } else if (timePeriod === 'filter-this-week') {
+                    const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                    filteredTrades = filteredTrades.filter(trade => new Date(trade.date) >= oneWeekAgo);
+                } else if (timePeriod === 'filter-today') {
+                    const today = now.toDateString();
+                    filteredTrades = filteredTrades.filter(trade => new Date(trade.date).toDateString() === today);
+                }
+                
+                // Outcome filter
+                if (outcome === 'filter-winners') {
+                    filteredTrades = filteredTrades.filter(trade => trade.pnl >= 0);
+                } else if (outcome === 'filter-losers') {
+                    filteredTrades = filteredTrades.filter(trade => trade.pnl < 0);
+                }
+                
+                // Instrument filter
+                if (instrument !== 'all') {
+                    filteredTrades = filteredTrades.filter(trade => trade.instrument === instrument);
+                }
+                
+                // Update journal with filtered trades
+                updateJournalWithFilteredTrades(filteredTrades);
+                
+                // Close modal
+                filterModal.style.display = 'none';
+            });
+            
+            resetFiltersBtn.addEventListener('click', function() {
+                document.getElementById('filter-all-time').checked = true;
+                document.getElementById('filter-all-outcomes').checked = true;
+                document.getElementById('filter-instrument').value = 'all';
+                updateJournalWithFilteredTrades(trades);
+                filterModal.style.display = 'none';
+            });
+        }
+
+        function updateJournalWithFilteredTrades(filteredTrades) {
+            journalTradesBody.innerHTML = '';
+            
+            if (filteredTrades.length === 0) {
+                journalTradesBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 30px; color: var(--gray);">
+                            <i class="fas fa-filter" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                            No trades match your filters
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            filteredTrades.forEach(trade => {
+                const pnl = trade.pnl;
+                const pnlPerContract = pnl / trade.size;
+                
+                const row = document.createElement('tr');
+                row.className = 'trade-row';
+                row.setAttribute('data-trade-id', trade.id);
+                
+                row.innerHTML = `
+                    <td>
+                        <div class="trade-pair">
+                            <div class="icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <div>${trade.instrument}</div>
+                                <div style="font-size: 12px; color: var(--gray);">${trade.instrumentName}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="badge ${trade.positionType.toLowerCase()}">${trade.positionType}</span></td>
+                    <td>${trade.size}</td>
+                    <td>${trade.entryPrice.toFixed(2)}</td>
+                    <td>${trade.exitPrice.toFixed(2)}</td>
+                    <td class="pnl ${pnl >= 0 ? 'positive' : 'negative'}">
+                        ${pnl >= 0 ? '+' : ''}${pnl.toFixed(2)}
+                    </td>
+                    <td>${formatDate(trade.date)}</td>
+                    <td>
+                        <button class="btn btn-outline view-trade-btn" style="padding: 5px 10px; font-size: 12px;">
+                            <i class="far fa-eye"></i> View
+                        </button>
+                    </td>
+                `;
+                
+                journalTradesBody.appendChild(row);
+            });
+
+            // Add event listeners to view buttons
+            document.querySelectorAll('.view-trade-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const tradeId = this.closest('tr').getAttribute('data-trade-id');
+                    showTradeDetail(tradeId);
+                });
+            });
+        }
+
         // ===== Event Listeners =====
         function setupEventListeners() {
             // Theme toggle
@@ -2209,6 +2723,9 @@
             // Correlation tool
             setupCorrelationTool();
             
+            // Trade filters
+            setupTradeFilters();
+            
             // Modal close buttons
             closeModalButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -2244,7 +2761,14 @@
             });
             
             // Show requested page
-            document.getElementById(`${pageId}-page`)?.classList.remove('hidden');
+            const pageToShow = document.getElementById(`${pageId}-page`);
+            if (pageToShow) {
+                pageToShow.classList.remove('hidden');
+                // Trigger animation by removing and adding the page class
+                pageToShow.classList.remove('page');
+                void pageToShow.offsetWidth; // Trigger reflow
+                pageToShow.classList.add('page');
+            }
             
             // Update active nav items
             navItems.forEach(item => {
