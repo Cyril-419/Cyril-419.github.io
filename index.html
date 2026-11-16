@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyril Onyia · Cybersecurity &amp; IT</title>
+  <meta name="description" content="Cyril Onyia: cybersecurity student at WGU building toward security operations and GRC. Projects, experience and skills." />
+  <meta property="og:title" content="Cyril Onyia · Cybersecurity & IT" />
+  <meta property="og:description" content="Security log analysis, detection engineering and IT support. Projects and experience." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+  <style>
+    :root {
+      --bg: #0b0f14; --surface: #121821; --border: #223040; --text: #e4ebf2; --muted: #8796a8;
+      --accent: #3ddc97; --accent-2: #4c8dff; --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 0 1.5rem; }
+
+    nav { position: sticky; top: 0; z-index: 5; background: rgba(11, 15, 20, 0.88); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 58px; }
+    .brand { font-family: var(--mono); color: var(--text); font-weight: 600; }
+    .brand span { color: var(--accent); }
+    nav ul { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.92rem; }
+    nav ul a { color: var(--muted); }
+    nav ul a:hover { color: var(--text); text-decoration: none; }
+
+    header.hero { padding: 5.5rem 1.5rem 4rem; }
+    .prompt { font-family: var(--mono); color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; }
+    .prompt::after { content: "▋"; animation: blink 1.1s steps(1) infinite; margin-left: 2px; }
+    @keyframes blink { 50% { opacity: 0; } }
+    h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; margin: 0 0 1rem; letter-spacing: -0.02em; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 640px; margin: 0 0 2rem; }
+    .lead strong { color: var(--text); font-weight: 600; }
+    .cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.65rem 1.15rem; border-radius: 8px; border: 1px solid var(--border); color: var(--text); font-weight: 500; }
+    .btn:hover { border-color: var(--accent); text-decoration: none; }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #062417; }
+    .status { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 2rem; font-size: 0.9rem; color: var(--muted); }
+    .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(61, 220, 151, 0.18); }
+
+    section { padding: 3.5rem 0; border-top: 1px solid var(--border); scroll-margin-top: 58px; }
+    h2 { font-family: var(--mono); font-size: 0.95rem; color: var(--accent); font-weight: 600; margin: 0 0 1.75rem; letter-spacing: 0.04em; }
+    h2::before { content: "// "; color: var(--muted); }
+    h3 { margin: 0 0 0.35rem; font-size: 1.15rem; }
+
+    .featured { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; margin-bottom: 1.25rem; }
+    .featured .tagline { color: var(--muted); margin: 0 0 1.25rem; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem; }
+    .stat { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; }
+    .stat b { display: block; font-size: 1.4rem; font-family: var(--mono); color: var(--accent); }
+    .stat span { font-size: 0.85rem; color: var(--muted); }
+    .term { background: #070a0e; border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; font: 0.8rem/1.6 var(--mono); color: #c9d4df; overflow-x: auto; white-space: pre; margin: 0 0 1.25rem; }
+    .term .h { color: #ff6b6b; } .term .m { color: #ffc857; } .term .c { color: var(--muted); }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; }
+    .card p { color: var(--muted); font-size: 0.95rem; margin: 0 0 1rem; flex: 1; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 0 0 1rem; }
+    .tags li { font: 0.75rem var(--mono); padding: 0.15rem 0.55rem; border-radius: 99px; background: rgba(76, 141, 255, 0.12); color: #9fc0ff; }
+    .links { display: flex; gap: 1rem; font-size: 0.9rem; }
+
+    .timeline { list-style: none; margin: 0; padding: 0; }
+    .timeline > li { display: grid; grid-template-columns: 170px 1fr; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px dashed var(--border); }
+    .timeline > li:last-child { border-bottom: 0; }
+    .when { font: 0.85rem var(--mono); color: var(--muted); padding-top: 0.2rem; }
+    .org { color: var(--muted); font-size: 0.95rem; margin: 0 0 0.4rem; }
+    .timeline ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: 0.95rem; }
+
+    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .skills div { border-left: 2px solid var(--accent); padding: 0.2rem 0 0.2rem 1rem; }
+    .skills b { display: block; margin-bottom: 0.2rem; }
+    .skills span { color: var(--muted); font-size: 0.93rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
+    footer .links { margin-bottom: 0.75rem; }
+
+    @media (max-width: 640px) {
+      nav ul { gap: 0.9rem; font-size: 0.85rem; }
+      nav ul li.hide-sm { display: none; }
+      .timeline > li { grid-template-columns: 1fr; gap: 0.25rem; }
+      header.hero { padding: 3.5rem 1.5rem 3rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .prompt::after { animation: none; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="#">cyril<span>@</span>onyia</a>
+      <ul>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li class="hide-sm"><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero wrap">
+    <div class="prompt">$ whoami</div>
+    <h1>Cyril Onyia</h1>
+    <p class="lead">Cybersecurity student at <strong>Western Governors University</strong>, building toward <strong>security operations and GRC</strong> from a foundation in hands-on IT support. I like turning noisy data like logs, alerts and tickets into something a person can act on.</p>
+    <div class="cta">
+      <a class="btn primary" href="#projects">See my work</a>
+      <a class="btn" href="https://github.com/Cyril-419" rel="noopener">GitHub</a>
+      <a class="btn" href="https://linkedin.com/in/cyrilonyia" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="status">Open to IT support / help desk roles and security internships · Dallas–Fort Worth</div>
+  </header>
+
+  <section id="projects">
+    <div class="wrap">
+      <h2>projects</h2>
+
+      <article class="featured">
+        <h3>Security Log Analyzer</h3>
+        <p class="tagline">Python tool that detects brute-force attacks and password spraying across Linux, Windows and web server logs.</p>
+        <div class="stats">
+          <div class="stat"><b>1M</b><span>events in ~26 s</span></div>
+          <div class="stat"><b>3 / 3</b><span>planted attacks found, 0 false positives</span></div>
+          <div class="stat"><b>28</b><span>automated tests</span></div>
+        </div>
+<pre class="term"><span class="c">$ python -m loganalyzer analyze auth.log security.json access.log</span>
+Processed 6,177 events from 3 file(s) in 0.13s -> 9 alert(s)
+
+ALERTS
+  <span class="h">[HIGH  ]</span> password_spray          198.51.100.23 tried 5 different accounts within 5 min
+  <span class="h">[HIGH  ]</span> success_after_failures  Successful login as 'jsmith' from 192.0.2.77 after 8 failures
+  <span class="m">[MEDIUM]</span> brute_force             10 failed logins from 203.0.113.45 within 5 min</pre>
+        <ul class="tags">
+          <li>Python</li><li>SQLite</li><li>pytest</li><li>MITRE ATT&amp;CK T1110</li><li>Detection engineering</li>
+        </ul>
+        <div class="links"><a href="https://github.com/Cyril-419/security-log-analyzer" rel="noopener">View code →</a></div>
+      </article>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Trade Journal</h3>
+          <p>Browser app for logging trades: win rate, profit factor, drawdown, equity curve, P&amp;L calendar, and CSV import/export with input validation and XSS-safe rendering.</p>
+          <ul class="tags"><li>JavaScript</li><li>Chart.js</li><li>HTML/CSS</li></ul>
+          <div class="links">
+            <a href="https://cyril-419.github.io/trade-journal/" rel="noopener">Live demo →</a>
+            <a href="https://github.com/Cyril-419/trade-journal" rel="noopener">Code</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>SOC Automation Project</h3>
+          <p>Automated security alert workflow using Shuffle SOAR.</p>
+          <ul class="tags"><li>Shuffle SOAR</li><li>Automation</li></ul>
+        </article>
+        <article class="card">
+          <h3>Detection Lab</h3>
+          <p>Home lab for collecting logs and practicing attack detection.</p>
+          <ul class="tags"><li>SIEM</li><li>Log analysis</li></ul>
+        </article>
+        <article class="card">
+          <h3>Threat Intelligence Feed Integration</h3>
+          <p>Bringing threat intelligence into a SIEM to add context to alerts.</p>
+          <ul class="tags"><li>Threat intel</li><li>SIEM</li></ul>
+        </article>
+        <article class="card">
+          <h3>Job simulations</h3>
+          <p><strong>AIG Shields Up:</strong> vulnerability research with CISA guidance, remediation email, and a Python script to brute-force a ransomware key. <strong>Mastercard:</strong> phishing analysis and a security awareness campaign.</p>
+          <ul class="tags"><li>Forage</li><li>Python</li><li>Threat analysis</li></ul>
+        </article>
+        <article class="card">
+          <h3>Python Calculator</h3>
+          <p>My first Python project: a menu-driven calculator with input validation, error handling and tests.</p>
+          <ul class="tags"><li>Python</li><li>pytest</li></ul>
+          <div class="links"><a href="https://github.com/Cyril-419/python-calculator" rel="noopener">Code →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <h2>experience</h2>
+      <ul class="timeline">
+        <li>
+          <div class="when">Jul 2024 – Jan 2026</div>
+          <div>
+            <h3>Customer Service Representative</h3>
+            <p class="org">Get Insured</p>
+            <ul>
+              <li>Handled 20–50 calls a day in a high-volume support center</li>
+              <li>Resolved account access issues, password resets and payment problems</li>
+              <li>Documented every case in a CRM and escalated unresolved tickets to the next support tier</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="when">Summer 2023</div>
+          <div>
+            <h3>GRC Intern</h3>
+            <p class="org">Net Solutions</p>
+            <ul>
+              <li>Learned audit, risk and policy fundamentals</li>
+              <li>Studied the NIST Cybersecurity Framework and HIPAA requirements</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="when">Jul 2022 – Jan 2023</div>
+          <div>
+            <h3>Field Technician</h3>
+            <p class="org">Dedicated Concepts</p>
+            <ul>
+              <li>Installed, troubleshot and supported payment machines on site</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <h2>education &amp; certifications</h2>
+      <ul class="timeline">
+        <li>
+          <div class="when">Expected Dec 2027</div>
+          <div><h3>B.S. Cybersecurity and Information Assurance</h3><p class="org">Western Governors University</p></div>
+        </li>
+        <li>
+          <div class="when">Completed</div>
+          <div><h3>Google Cybersecurity Certificate</h3></div>
+        </li>
+        <li>
+          <div class="when">In progress</div>
+          <div><h3>CompTIA Security+</h3><p class="org">Through WGU</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <h2>skills</h2>
+      <div class="skills">
+        <div><b>SIEM &amp; log analysis</b><span>Microsoft Sentinel, Splunk, Python log parsing</span></div>
+        <div><b>Network monitoring</b><span>Wireshark, Zeek</span></div>
+        <div><b>Endpoint &amp; automation</b><span>Microsoft Defender for Endpoint, Shuffle SOAR</span></div>
+        <div><b>GRC</b><span>NIST CSF, HIPAA, risk and audit fundamentals</span></div>
+        <div><b>Programming</b><span>Python, SQL (SQLite), JavaScript, HTML/CSS</span></div>
+        <div><b>IT support</b><span>Troubleshooting, account recovery, ticketing, escalation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="links">
+        <a href="https://linkedin.com/in/cyrilonyia" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/Cyril-419" rel="noopener">GitHub</a>
+      </div>
+      <p>Best way to reach me is a message on LinkedIn.</p>
+      <p>© <span id="year">2026</span> Cyril Onyia</p>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
