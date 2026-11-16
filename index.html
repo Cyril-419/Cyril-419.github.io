@@ -122,7 +122,7 @@
         <div class="stats">
           <div class="stat"><b>1M</b><span>events in ~26 s</span></div>
           <div class="stat"><b>3 / 3</b><span>planted attacks found, 0 false positives</span></div>
-          <div class="stat"><b>28</b><span>automated tests</span></div>
+          <div class="stat"><b>48</b><span>tests, run by GitHub Actions CI</span></div>
         </div>
 <pre class="term"><span class="c">$ python -m loganalyzer analyze auth.log security.json access.log</span>
 Processed 6,177 events from 3 file(s) in 0.13s -> 9 alert(s)
@@ -132,7 +132,7 @@ ALERTS
   <span class="h">[HIGH  ]</span> success_after_failures  Successful login as 'jsmith' from 192.0.2.77 after 8 failures
   <span class="m">[MEDIUM]</span> brute_force             10 failed logins from 203.0.113.45 within 5 min</pre>
         <ul class="tags">
-          <li>Python</li><li>SQLite</li><li>pytest</li><li>MITRE ATT&amp;CK T1110</li><li>Detection engineering</li>
+          <li>Python</li><li>SQLite</li><li>REST API</li><li>GitHub Actions</li><li>pytest</li><li>MITRE ATT&amp;CK T1110</li>
         </ul>
         <div class="links"><a href="https://github.com/Cyril-419/security-log-analyzer" rel="noopener">View code →</a></div>
       </article>
