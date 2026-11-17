@@ -137,13 +137,28 @@ ALERTS
         <div class="links"><a href="https://github.com/Cyril-419/security-log-analyzer" rel="noopener">View code →</a></div>
       </article>
 
+      <article class="featured">
+        <h3>Active Directory Home Lab</h3>
+        <p class="tagline">Windows Server 2022 domain controller and a Windows 11 client in VirtualBox, built with PowerShell and used to work real help desk tickets.</p>
+        <div class="stats">
+          <div class="stat"><b>11</b><span>OUs, 5 security groups, 12 users scripted</span></div>
+          <div class="stat"><b>3</b><span>department-scoped GPOs + lockout policy</span></div>
+          <div class="stat"><b>5</b><span>help desk tickets worked end to end</span></div>
+        </div>
+<pre class="term"><span class="c">PS C:\Lab\scripts&gt; Get-LockedUsers</span>
+SamAccountName Name       Department BadLogonCount LastBadPasswordAttempt
+pkim           Parker Kim Sales                  5 11/17/2026 12:09:40 PM
+
+<span class="c">PS C:\Lab\scripts&gt; Unlock-User pkim</span>
+2026-11-17 12:09:43  Administrator  UNLOCK   pkim</pre>
+        <p class="tagline">Lockout, password reset, new-hire onboarding and offboarding tickets; reset/unlock rights delegated to a help desk group without Domain Admin; Group Policy verified on the client with <code>gpresult</code>.</p>
+        <ul class="tags">
+          <li>Active Directory</li><li>Group Policy</li><li>PowerShell</li><li>DNS</li><li>Windows Server 2022</li><li>VirtualBox</li>
+        </ul>
+        <div class="links"><a href="https://github.com/Cyril-419/Active-Directory-Home-Lab" rel="noopener">View code &amp; screenshots →</a></div>
+      </article>
+
       <div class="grid">
-        <article class="card">
-          <h3>Active Directory Home Lab</h3>
-          <p>Windows Server 2022 domain controller and a Windows 11 client in VirtualBox. Automated OUs, security groups and 12 users with PowerShell, applied department-scoped Group Policy and an account lockout policy, delegated reset/unlock rights to a help desk group, and worked lockout, password reset, onboarding and offboarding tickets.</p>
-          <ul class="tags"><li>Active Directory</li><li>Group Policy</li><li>PowerShell</li><li>DNS</li><li>Windows Server</li></ul>
-          <div class="links"><a href="https://github.com/Cyril-419/Active-Directory-Home-Lab" rel="noopener">Code →</a></div>
-        </article>
         <article class="card">
           <h3>Log Analyzer Dashboard</h3>
           <p>Full-stack web app for the log analyzer: a React + TypeScript frontend and a Node.js REST API with SQLite that calls the Python analyzer as a separate service. Hardened with schema validation, rate limiting and a strict Content-Security-Policy; tested end to end with Playwright in CI.</p>
